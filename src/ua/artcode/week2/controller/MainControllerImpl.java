@@ -47,7 +47,7 @@ public class MainControllerImpl implements MainController {
         for (CardGroup group: appDB.getCardGroups()) {
             for (Card card: group.getCards()) {
                 if (card.getId()==cardId) {
-                    group.getCards().remove(group.getCards().indexOf(card)); //needs card.equals overriding
+                    group.getCards().remove(card);
                     result = card;
                 }
             }
