@@ -44,6 +44,24 @@ public class Card {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this){
+            return true;
+        }
+        if (obj.getClass()!= Card.class){
+            return false;
+        }
+        Card otherCard = (Card) obj;
+        if (otherCard.id == id && otherCard.front == front && otherCard.back == back){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Card{" +
                 "id=" + id +

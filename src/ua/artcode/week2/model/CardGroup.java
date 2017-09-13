@@ -12,7 +12,8 @@ public class CardGroup {
     private int id;
     private ArrayList<Card> cards;
 
-    public CardGroup() {
+    public CardGroup(int id) {
+        this.id = id;
         cards = new ArrayList<>();
     }
 

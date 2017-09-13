@@ -30,7 +30,7 @@ public class AppDB implements GroupDao {
 
     @Override
     public CardGroup create(CardGroup cardGroup) {
-        cardGroup.setId(generateId());
+        //cardGroup.setId(generateId());
         cardGroups.add(cardGroup);
         return cardGroup;
     }
