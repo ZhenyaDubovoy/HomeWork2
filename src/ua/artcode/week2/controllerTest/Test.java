@@ -12,7 +12,10 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("Test creating group " + createGroupTest());
         System.out.println("Test adding card to group " + addingCardTest());
-        System.out.println(removingCardTest());
+        System.out.println("Test removing card from concrete group and from all groups " + removingCardTest());
+        System.out.println("Test getting all groups " + testGetGroups());
+        System.out.println("Test getting all cards of group" + testGetCardsOfGroup());
+
     }
 
     public static boolean createGroupTest(){
@@ -55,14 +58,47 @@ public class Test {
         controller.addCard(card1, 2);
         controller.addCard(card2, 2);
 
-        controller.removeCard(1, 1);
-        boolean res1 = !controller.getAppDB().getCardGroups().get(0).getCards().contains(card1);
+        controller.removeCard(2, 1);
+        boolean res1 = !controller.getAppDB().getCardGroups().get(0).getCards().contains(card2);
 
-        controller.addCard(card1, 1);
+        controller.addCard(card2, 1);
 
         controller.removeCard(1);
 
-        return !controller.getAppDB().getCardGroups().get(0).getCards().contains(card1) && !controller.getAppDB().getCardGroups().get(1).getCards().contains(card1);
+        return res1 && !controller.getAppDB().getCardGroups().get(0).getCards().contains(card1) && !controller.getAppDB().getCardGroups().get(1).getCards().contains(card1);
 
+    }
+
+    public static boolean testGetGroups(){
+        AppDB appDB = new AppDB();
+        MainControllerImpl controller = new MainControllerImpl(appDB);
+
+        controller.createGroup(new CardGroup(1));
+        controller.createGroup(new CardGroup(2));
+
+        CardGroup groups [];
+        groups = controller.getAllGroups();
+
+        if (groups[0].getId() == 1 && groups[1].getId()==2 && groups.length == 2){
+            return true;
+        }
+        else return false;
+    }
+
+    public static boolean testGetCardsOfGroup(){
+        AppDB appDB = new AppDB();
+        MainControllerImpl controller = new MainControllerImpl(appDB);
+
+        controller.createGroup(new CardGroup(1));
+
+        Card card1 = new Card(1,"word1", "description1");
+        Card card2 = new Card(2,"word2", "description2");
+
+        controller.addCard(card1, 1);
+        controller.addCard(card2, 1);
+
+        Card[] cards = controller.getCards(1);
+
+        return cards[0].getId() == 1 && cards[1].getId() == 2 && cards.length == 2;
     }
 }

@@ -43,13 +43,16 @@ public class MainControllerImpl implements MainController {
     @Override
     public Card removeCard(int cardId) {
         Card result = null;
+        int indexCardToRemove=-1;
         //
         for (CardGroup group: appDB.getCardGroups()) {
             for (Card card: group.getCards()) {
                 if (card.getId()==cardId) {
-                    group.getCards().remove(card);
-                    result = card;
+                    indexCardToRemove = group.getCards().indexOf(card);
                 }
+            }
+            if(indexCardToRemove!=-1) {
+                result = group.getCards().remove(indexCardToRemove);
             }
         }
 
